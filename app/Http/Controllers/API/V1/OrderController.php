@@ -16,6 +16,7 @@ use App\Models\Order;
 use App\Models\OrderSnapshot;
 use App\Models\Reserve;
 use App\Models\StoreApp;
+use App\Models\SysConfig;
 use App\Models\WeChatUser;
 use function GuzzleHttp\Psr7\uri_for;
 use Illuminate\Http\Request;
@@ -264,6 +265,14 @@ class OrderController extends Controller
         $uid = getUserToken(Input::get('token'));
         $order = DeliveryAddress::find($id);
         $user = WeChatUser::find($order->user_id);
+        $config = SysConfig::first();
+//        $user = WeChatUser::find($uid);
+        if ($user->score<$config->accept_score){
+            return response()->json([
+                'code'=>'403',
+                'msg'=>'积分不足！'
+            ]);
+        }
         $apply = ApplyForm::where([
             'user_id'=>$uid,
             'state'=>'1'
