@@ -266,8 +266,8 @@ class OrderController extends Controller
         $order = DeliveryAddress::find($id);
         $user = WeChatUser::find($order->user_id);
         $config = SysConfig::first();
-//        $user = WeChatUser::find($uid);
-        if ($user->score<$config->accept_score){
+        $worker = WeChatUser::find($uid);
+        if ($worker->score<$config->accept_score){
             return response()->json([
                 'code'=>'403',
                 'msg'=>'积分不足！'
