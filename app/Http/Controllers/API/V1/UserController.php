@@ -325,6 +325,7 @@ class UserController extends Controller
         $limit = Input::get('limit',10);
         if ($type ==1){
             $id = Reserve::where('user_id','=',$uid)->limit($limit)->offset(($page-1)*$limit)->pluck('reserve_id');
+            dd($id);
             $reserves = DeliveryAddress::whereIn('id',$id)->orderBy('id','DESC')->get();
         }else{
             $reserves = DeliveryAddress::where('worker_id','=',$uid)->limit($limit)->offset(($page-1)*$limit)->orderBy('id','DESC')->get();
