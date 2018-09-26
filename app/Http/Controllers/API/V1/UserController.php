@@ -500,4 +500,13 @@ class UserController extends Controller
             'msg'=>'系统错误！'
         ]);
     }
+    public function getUserScore()
+    {
+        $uid = getUserToken(Input::get('token'));
+        $user = WeChatUser::find($uid);
+        return response()->json([
+            'code'=>'200',
+            'data'=>$user->score
+        ]);
+    }
 }

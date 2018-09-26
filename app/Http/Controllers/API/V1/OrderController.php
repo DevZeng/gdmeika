@@ -272,6 +272,9 @@ class OrderController extends Controller
                 'code'=>'403',
                 'msg'=>'积分不足！'
             ]);
+        }else{
+            $worker->score = $worker->score-$config->accept_score;
+            $worker->save();
         }
         $apply = ApplyForm::where([
             'user_id'=>$uid,

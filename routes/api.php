@@ -35,4 +35,5 @@ Route::group(['prefix'=>'v1'],function (){
     Route::post('code','API\V1\SystemController@sendCode');
     Route::post('pay/notify','API\V1\OrderController@payNotify');
     Route::post('finish/reserve/{id}','API\V1\OrderController@finishReserve');
+    Route::get('user/score','API\V1\UserController@getUserScore');
 });
